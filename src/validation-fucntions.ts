@@ -13,3 +13,7 @@ export function isNotABoolean(data: unknown): boolean {
   if (!isNotANumber(data)) return !((data as number) == 1 || (data as number) == 0);
   return !Zod.boolean().safeParse(data).success;
 }
+
+export function isNotAnObject(data: unknown): boolean {
+  return !Zod.object({}).safeParse(data).success;
+}
