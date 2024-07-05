@@ -2,7 +2,7 @@ import { isNotAListOfObjects } from "../src/validation-fucntions";
 
 describe("isNotAListOfObjects", () => {
   test("Should return false if given a list of objects", () => {
-    const list = { foo: "Bar" } as unknown;
+    const list = [{ foo: "Bar" }] as unknown;
     expect(isNotAListOfObjects(list)).toBe(false);
   });
 
