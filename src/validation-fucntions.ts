@@ -21,3 +21,7 @@ export function isNotAnObject(data: unknown): boolean {
 export function isNotAListOfStrings(data: unknown): boolean {
   return !Zod.array(Zod.string()).safeParse(data).success;
 }
+
+export function isNotAListOfNumbers(data: unknown): boolean {
+  return !Zod.array(Zod.number()).safeParse(data).success;
+}
