@@ -8,20 +8,6 @@ import {
 } from "./validation-exception";
 import { isNotAListOfStrings, isNotAString } from "./validation-fucntions";
 
-function getValueByPath(data: any, keyPath: string): any {
-  return keyPath.split(".").reduce((acc, key) => acc && acc[key], data);
-}
-
-function nullOrUndefinedFieldCheck(fieldValue: any, keyPath: string): void {
-  if (fieldValue === null) throw new NullFieldValidationException(keyPath);
-  if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
-}
-
-function nullOrUndefinedValueCheck(value: any): void {
-  if (value === null) throw new NullValidationException();
-  if (value === undefined) throw new UndefinedValidationException();
-}
-
 export class Parser {
   private constructor(private data: unknown) {}
 
@@ -40,8 +26,7 @@ export class Parser {
    */
   getString(keyPath: string): string {
     const fieldValue = getValueByPath(this.data, keyPath);
-    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
-    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
     if (isNotAString(fieldValue)) throw new StringValidationException(keyPath);
     return fieldValue as string;
   }
@@ -83,4 +68,18 @@ export class Parser {
     if (isNotAListOfStrings(fieldValue)) throw new StringArrayValidationException(keyPath);
     return fieldValue as string[];
   }
+}
+
+function getValueByPath(data: any, keyPath: string): any {
+  return keyPath.split(".").reduce((acc, key) => acc && acc[key], data);
+}
+
+function nullOrUndefinedFieldCheck(fieldValue: any, keyPath: string): void {
+  if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+  if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+}
+
+function nullOrUndefinedValueCheck(value: any): void {
+  if (value === null) throw new NullValidationException();
+  if (value === undefined) throw new UndefinedValidationException();
 }
