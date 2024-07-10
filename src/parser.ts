@@ -17,4 +17,9 @@ export class Parser {
     if (isNotAString(fieldValue)) throw new StringValidationException(keyPath);
     return fieldValue as string;
   }
+
+  getStringOrUndefined(keyPath: string): string | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue == undefined ? undefined : this.getString(keyPath);
+  }
 }
