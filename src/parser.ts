@@ -28,4 +28,9 @@ export class Parser {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue == undefined ? undefined : this.getString(keyPath);
   }
+
+  getStringOrNull(keyPath: string): string | null {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === null ? null : this.getString(keyPath);
+  }
 }
