@@ -1,4 +1,4 @@
-import { isNotAListOfObjects } from "../src/validation-fucntions";
+import { isNotAListOfObjects } from "../../src/validation-fucntions";
 
 describe("isNotAListOfObjects", () => {
   test("Should return false if given a list of objects", () => {

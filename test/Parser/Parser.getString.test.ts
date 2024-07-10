@@ -1,5 +1,5 @@
-import { Parser } from "../src/parser";
-import { StringValidationException } from "../src/validation-exception";
+import { Parser } from "../../src/parser";
+import { StringValidationException } from "../../src/validation-exception";
 
 describe("Parser.getString", () => {
   test("Should return 'Hello, World' given the key path 'message'", () => {
