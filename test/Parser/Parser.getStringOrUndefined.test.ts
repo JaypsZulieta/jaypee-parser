@@ -1,5 +1,8 @@
 import { Parser } from "../../src/parser";
-import { StringValidationException } from "../../src/validation-exception";
+import {
+  NullFieldValidationException,
+  StringValidationException,
+} from "../../src/validation-exception";
 
 describe("Parser.getStringOrUndefined", () => {
   test("Should return undefined given the keypath 'user.personalInfo.middlename'", () => {
@@ -33,5 +36,14 @@ describe("Parser.getStringOrUndefined", () => {
       parser.getStringOrUndefined("details.isAdmin");
     };
     expect(action).toThrow(StringValidationException);
+  });
+
+  test("Should throw a NullFieldValidationException given the key path 'details.contact_number'", () => {
+    const data = { details: { contact_number: null } } as unknown;
+    const parser = Parser.parseFrom(data);
+    const action = () => {
+      parser.getStringOrUndefined("details.contact_number");
+    };
+    expect(action).toThrow(NullFieldValidationException);
   });
 });
