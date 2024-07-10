@@ -26,7 +26,7 @@ export class Parser {
 
   getStringOrUndefined(keyPath: string): string | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue == undefined ? undefined : this.getString(keyPath);
+    return fieldValue === undefined ? undefined : this.getString(keyPath);
   }
 
   getStringOrNull(keyPath: string): string | null {
