@@ -8,9 +8,20 @@ import {
 } from "./validation-exception";
 import { isNotAListOfStrings, isNotAString } from "./validation-fucntions";
 
+/**
+ * This is class is used to parse an object with an unknown shape
+ * but instead of parsing the entire object at oncce, it parses it field
+ * by field.
+ */
 export class Parser {
   private constructor(private data: unknown) {}
 
+  /**
+   * Use this method to instantiate a Parser object from an object with
+   * an unknown shape.
+   * @param data the data that needs to be parsed
+   * @returns an instance of the Parser class
+   */
   static parseFrom(data: unknown): Parser {
     return new Parser(data);
   }
