@@ -1,12 +1,25 @@
 import {
   NullFieldValidationException,
+  NullValidationException,
+  StringArrayValidationException,
   StringValidationException,
   UndefinedFieldValidationException,
+  UndefinedValidationException,
 } from "./validation-exception";
-import { isNotAString } from "./validation-fucntions";
+import { isNotAListOfStrings, isNotAString } from "./validation-fucntions";
 
 function getValueByPath(data: any, keyPath: string): any {
   return keyPath.split(".").reduce((acc, key) => acc && acc[key], data);
+}
+
+function nullOrUndefinedFieldCheck(fieldValue: any, keyPath: string): void {
+  if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+  if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+}
+
+function nullOrUndefinedValueCheck(value: any): void {
+  if (value === null) throw new NullValidationException();
+  if (value === undefined) throw new UndefinedValidationException();
 }
 
 export class Parser {
@@ -56,5 +69,18 @@ export class Parser {
   getStringOrNull(keyPath: string): string | null {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getString(keyPath);
+  }
+
+  getStrings(keyPath?: string): string[] {
+    if (!keyPath) {
+      const value = this.data;
+      nullOrUndefinedValueCheck(value);
+      if (isNotAListOfStrings(value)) throw new StringArrayValidationException();
+      return value as string[];
+    }
+    const fieldValue = getValueByPath(this.data, keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
+    if (isNotAListOfStrings(fieldValue)) throw new StringArrayValidationException(keyPath);
+    return fieldValue as string[];
   }
 }

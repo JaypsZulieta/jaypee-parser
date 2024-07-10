@@ -21,3 +21,25 @@ export class StringValidationException extends ValidationException {
     super(`The field '${fieldName}' is not a string`);
   }
 }
+
+export class StringArrayValidationException extends ValidationException {
+  constructor(fieldName?: string) {
+    super(
+      !fieldName
+        ? "The object is not an array of strings"
+        : `The field '${fieldName}' is not an array of strings`
+    );
+  }
+}
+
+export class NullValidationException extends ValidationException {
+  constructor() {
+    super("value is null");
+  }
+}
+
+export class UndefinedValidationException extends ValidationException {
+  constructor() {
+    super("value is undefined");
+  }
+}
