@@ -1,4 +1,8 @@
-import { StringValidationException } from "./validation-exception";
+import {
+  NullFieldValidationException,
+  StringValidationException,
+  UndefinedFieldValidationException,
+} from "./validation-exception";
 import { isNotAString } from "./validation-fucntions";
 
 function getValueByPath(data: any, keyPath: string): any {
@@ -14,6 +18,8 @@ export class Parser {
 
   getString(keyPath: string): string {
     const fieldValue = getValueByPath(this.data, keyPath);
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
     if (isNotAString(fieldValue)) throw new StringValidationException(keyPath);
     return fieldValue as string;
   }
