@@ -1,5 +1,9 @@
 import { Parser } from "../../src/parser";
-import { StringValidationException } from "../../src/validation-exception";
+import {
+  NullFieldValidationException,
+  StringValidationException,
+  UndefinedFieldValidationException,
+} from "../../src/validation-exception";
 
 describe("Parser.getString", () => {
   test("Should return 'Hello, World' given the key path 'message'", () => {
@@ -52,5 +56,21 @@ describe("Parser.getString", () => {
       Parser.parseFrom(data).getString("total_pages");
     };
     expect(action).toThrow(StringValidationException);
+  });
+
+  test("Should throw an UndefinedFieldValidationException given the key 'middlename'", () => {
+    const data = {} as unknown;
+    const action = () => {
+      Parser.parseFrom(data).getString("middlename");
+    };
+    expect(action).toThrow(UndefinedFieldValidationException);
+  });
+
+  test("Should throw an NullFieldValidationException given the key 'contact_info'", () => {
+    const data = { contact_info: null } as unknown;
+    const action = () => {
+      Parser.parseFrom(data).getString("contact_info");
+    };
+    expect(action).toThrow(NullFieldValidationException);
   });
 });
