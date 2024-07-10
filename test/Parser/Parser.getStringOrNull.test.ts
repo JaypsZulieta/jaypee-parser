@@ -1,5 +1,8 @@
 import { Parser } from "../../src/parser";
-import { StringValidationException } from "../../src/validation-exception";
+import {
+  StringValidationException,
+  UndefinedFieldValidationException,
+} from "../../src/validation-exception";
 
 describe("Parser.getStringOrNull", () => {
   test("Should return null given the key path 'user.name'", () => {
@@ -42,5 +45,13 @@ describe("Parser.getStringOrNull", () => {
       parser.getStringOrNull("user.isAdmin");
     };
     expect(action).toThrow(StringValidationException);
+  });
+
+  test("Should throw a UndefinedFieldValidationException given the key 'middlename'", () => {
+    const data = {} as unknown;
+    const action = () => {
+      Parser.parseFrom(data).getStringOrNull("middlename");
+    };
+    expect(action).toThrow(UndefinedFieldValidationException);
   });
 });
