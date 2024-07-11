@@ -90,6 +90,11 @@ export class Parser {
     if (isNotAListOfStrings(fieldValue)) throw new StringArrayValidationException(keyPath);
     return fieldValue as string[];
   }
+
+  getStringsOrUndefined(keyPath: string): string[] | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === undefined ? undefined : this.getStrings(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
