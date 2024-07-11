@@ -92,7 +92,7 @@ export class Parser {
   }
 
   /**
-   * Use this to extract the value of a specified key and parse it inot an array of strings
+   * Use this to extract the value of a specified key and parse it into an array of strings
    * or return undefined if the key does not exist in the object
    * @throws {StringArrayValidationException} if the value is not an array of strings
    * @throws {NullFieldValidationException} if the value of the key is null
