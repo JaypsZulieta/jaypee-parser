@@ -97,7 +97,7 @@ export class Parser {
    * @throws {StringArrayValidationException} if the value is not an array of strings
    * @throws {NullFieldValidationException} if the value of the key is null
    * @param keyPath the full key path of the field that you want to be extracted
-   * @returnsthe the extracted data as an array of strings or undefined if the field does not exist
+   * @returns the extracted data as an array of strings or undefined if the field does not exist
    */
   getStringsOrUndefined(keyPath: string): string[] | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
