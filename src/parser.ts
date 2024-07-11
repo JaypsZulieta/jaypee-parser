@@ -91,6 +91,14 @@ export class Parser {
     return fieldValue as string[];
   }
 
+  /**
+   * Use this to extract the value of a specified key and parse it inot an array of strings
+   * or return undefined if the key does not exist in the object
+   * @throws {StringArrayValidationException} if the value is not an array of strings
+   * @throws {NullFieldValidationException} if the value of the key is null
+   * @param keyPath the full key path of the field that you want to be extracted
+   * @returnsthe the extracted data as an array of strings or undefined if the field does not exist
+   */
   getStringsOrUndefined(keyPath: string): string[] | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === undefined ? undefined : this.getStrings(keyPath);
