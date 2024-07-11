@@ -10,7 +10,7 @@ import { isNotAListOfStrings, isNotAString } from "./validation-fucntions";
 
 /**
  * This is class is used to parse an object with an unknown shape
- * but instead of parsing the entire object at oncce, it parses it field
+ * but instead of parsing the entire object at once, it parses it field
  * by field.
  */
 export class Parser {
