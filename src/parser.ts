@@ -132,6 +132,11 @@ export class Parser {
     if (isNotANumber(fieldValue)) throw new NumberValidationException(keyPath);
     return fieldValue as number;
   }
+
+  getNumberOrUndefined(keyPath: string): number | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === undefined ? undefined : this.getNumber(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
