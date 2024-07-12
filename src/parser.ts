@@ -145,6 +145,11 @@ export class Parser {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === undefined ? undefined : this.getNumber(keyPath);
   }
+
+  getNumberOrNull(keyPath: string): number | null {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === null ? null : this.getNumber(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
