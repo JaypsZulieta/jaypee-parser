@@ -1,12 +1,13 @@
 import {
   NullFieldValidationException,
   NullValidationException,
+  NumberValidationException,
   StringArrayValidationException,
   StringValidationException,
   UndefinedFieldValidationException,
   UndefinedValidationException,
 } from "./validation-exception";
-import { isNotAListOfStrings, isNotAString } from "./validation-fucntions";
+import { isNotAListOfStrings, isNotANumber, isNotAString } from "./validation-fucntions";
 
 /**
  * This is class is used to parse an object with an unknown shape
@@ -115,6 +116,13 @@ export class Parser {
   getStringsOrNull(keyPath: string): string[] | null {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getStrings(keyPath);
+  }
+
+  getNumber(keyPath: string): number {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
+    if (isNotANumber(fieldValue)) throw new NumberValidationException(keyPath);
+    return fieldValue as number;
   }
 }
 

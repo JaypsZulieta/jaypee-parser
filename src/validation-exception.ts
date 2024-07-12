@@ -43,3 +43,9 @@ export class UndefinedValidationException extends ValidationException {
     super("value is undefined");
   }
 }
+
+export class NumberValidationException extends ValidationException {
+  constructor(fieldName: string) {
+    super(`The field '${fieldName}' is not a number.`);
+  }
+}
