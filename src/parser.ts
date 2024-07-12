@@ -146,6 +146,14 @@ export class Parser {
     return fieldValue === undefined ? undefined : this.getNumber(keyPath);
   }
 
+  /**
+   * Use this to extract the value of a specified key and parse it into a number or
+   * return null if the value is null
+   * @throws {UndefinedFieldValidationException} if the value is undefined
+   * @throws {NumberValidationException} if the value isn't a number
+   * @param keyPath the full keypath of the field that you want to extract
+   * @returns the extracted data parsed into a number or null if the value is null
+   */
   getNumberOrNull(keyPath: string): number | null {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getNumber(keyPath);
