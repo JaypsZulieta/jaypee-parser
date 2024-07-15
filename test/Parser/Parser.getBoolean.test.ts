@@ -14,7 +14,7 @@ describe("Parser.getBoolean", () => {
     expect(action).toThrow(NullFieldValidationException);
   });
 
-  test("Should throw a UndefinedFieldValidationException if the value is unedined", () => {
+  test("Should throw a UndefinedFieldValidationException if the value is undefined", () => {
     const parser = Parser.parseFrom({});
     const action = () => {
       parser.getBoolean("isHandsome");
