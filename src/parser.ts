@@ -127,8 +127,8 @@ export class Parser {
   getDate(keyPath: string): Date {
     const fieldValue = getValueByPath(this.data, keyPath);
     nullOrUndefinedFieldCheck(fieldValue, keyPath);
-    if (isNotADate(fieldValue)) throw new DateValidationException(keyPath);
-    if (!isNotANumber(fieldValue)) throw new DateValidationException(keyPath);
+    if (isNotADate(fieldValue) || !isNotANumber(fieldValue))
+      throw new DateValidationException(keyPath);
     if (!isNotAString(fieldValue)) return new Date(fieldValue);
     return fieldValue as Date;
   }
