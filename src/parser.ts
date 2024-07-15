@@ -1,13 +1,19 @@
 import {
   NullFieldValidationException,
   NullValidationException,
+  NumberArrayValidationException,
   NumberValidationException,
   StringArrayValidationException,
   StringValidationException,
   UndefinedFieldValidationException,
   UndefinedValidationException,
 } from "./validation-exception";
-import { isNotAListOfStrings, isNotANumber, isNotAString } from "./validation-fucntions";
+import {
+  isNotAListOfNumbers,
+  isNotAListOfStrings,
+  isNotANumber,
+  isNotAString,
+} from "./validation-fucntions";
 
 export class Parser {
   private constructor(private data: unknown) {}
@@ -71,6 +77,19 @@ export class Parser {
   getNumberOrNull(keyPath: string): number | null {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getNumber(keyPath);
+  }
+
+  getNumbers(keyPath?: string): number[] {
+    if (!keyPath) {
+      const value = this.data;
+      nullOrUndefinedValueCheck(value);
+      if (isNotAListOfNumbers(value)) throw new NumberArrayValidationException();
+      return value as number[];
+    }
+    const fieldValue = getValueByPath(this.data, keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
+    if (isNotAListOfNumbers(fieldValue)) throw new NumberArrayValidationException(keyPath);
+    return fieldValue as number[];
   }
 }
 

@@ -49,3 +49,13 @@ export class NumberValidationException extends ValidationException {
     super(`The field '${fieldName}' is not a number.`);
   }
 }
+
+export class NumberArrayValidationException extends ValidationException {
+  constructor(fieldName?: string) {
+    super(
+      !fieldName
+        ? "The object is not an array of numbers"
+        : `The '${fieldName}' is not an array of numbers`
+    );
+  }
+}
