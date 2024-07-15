@@ -33,3 +33,7 @@ export function isNotAListOfBooleans(data: unknown): boolean {
 export function isNotAListOfObjects(data: unknown): boolean {
   return !Zod.array(Zod.object({}).passthrough()).safeParse(data).success;
 }
+
+export function isNotADate(data: unknown): boolean {
+  return !Zod.date().safeParse(data).success;
+}

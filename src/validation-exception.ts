@@ -65,3 +65,9 @@ export class BooleanValidationException extends ValidationException {
     super(`the field ${fieldName} is not a boolean`);
   }
 }
+
+export class DateValidationException extends ValidationException {
+  constructor(fieldName: string) {
+    super(`the field ${fieldName} is not a date`);
+  }
+}

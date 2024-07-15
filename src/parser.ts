@@ -1,5 +1,6 @@
 import {
   BooleanValidationException,
+  DateValidationException,
   NullFieldValidationException,
   NullValidationException,
   NumberArrayValidationException,
@@ -11,6 +12,7 @@ import {
 } from "./validation-exception";
 import {
   isNotABoolean,
+  isNotADate,
   isNotAListOfNumbers,
   isNotAListOfStrings,
   isNotANumber,
@@ -120,6 +122,13 @@ export class Parser {
   getBooleanOrUndefined(keyPath: string): boolean | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === undefined ? undefined : this.getBoolean(keyPath);
+  }
+
+  getDate(keyPath: string): Date {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
+    if (isNotADate(fieldValue)) throw new DateValidationException(keyPath);
+    return fieldValue as Date;
   }
 }
 
