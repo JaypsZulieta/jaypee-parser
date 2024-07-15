@@ -1,4 +1,4 @@
-import { isNotAListOfBooleans } from "../../src/validation-fucntions";
+import { isNotAListOfBooleans } from "../../src/validation-functions";
 
 describe("isNotAListOfBooleans", () => {
   test("Should return false given a list of booleans", () => {

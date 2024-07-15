@@ -1,4 +1,4 @@
-import { isNotABoolean, isNotANumber } from "../../src/validation-fucntions";
+import { isNotABoolean, isNotANumber } from "../../src/validation-functions";
 
 describe("isNotABoolean", () => {
   test("Should return true if the data passed is NOT a boolean", () => {

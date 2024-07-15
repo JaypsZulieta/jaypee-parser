@@ -15,7 +15,7 @@ import {
   isNotAListOfStrings,
   isNotANumber,
   isNotAString,
-} from "./validation-fucntions";
+} from "./validation-functions";
 
 export class Parser {
   private constructor(private data: unknown) {}

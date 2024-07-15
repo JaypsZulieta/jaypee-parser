@@ -1,4 +1,4 @@
-import { isNotAnObject } from "../../src/validation-fucntions";
+import { isNotAnObject } from "../../src/validation-functions";
 
 describe("isNotAnObject", () => {
   test("Should return true if the data passed is NOT an object.", () => {

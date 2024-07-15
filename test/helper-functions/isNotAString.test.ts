@@ -1,4 +1,4 @@
-import { isNotAString } from "../../src/validation-fucntions";
+import { isNotAString } from "../../src/validation-functions";
 
 describe("isNotAString", () => {
   test("Should return true if the data passed is NOT a string.", () => {

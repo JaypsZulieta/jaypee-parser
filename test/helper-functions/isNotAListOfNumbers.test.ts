@@ -1,4 +1,4 @@
-import { isNotAListOfNumbers } from "../../src/validation-fucntions";
+import { isNotAListOfNumbers } from "../../src/validation-functions";
 
 describe("isNotAListOfNumbers", () => {
   test("Should return false if given an array of numbers", () => {

@@ -1,4 +1,4 @@
-import { isNotANumber } from "../../src/validation-fucntions";
+import { isNotANumber } from "../../src/validation-functions";
 
 describe("isNotANumber", () => {
   test("Should return true if the data passed is NOT a number.", () => {

@@ -1,4 +1,4 @@
-import { isNotAListOfStrings } from "../../src/validation-fucntions";
+import { isNotAListOfStrings } from "../../src/validation-functions";
 
 describe("isNotAListOfStrings", () => {
   test("Should return false if given a list of strings", () => {
