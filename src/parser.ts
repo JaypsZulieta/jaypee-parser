@@ -91,6 +91,11 @@ export class Parser {
     if (isNotAListOfNumbers(fieldValue)) throw new NumberArrayValidationException(keyPath);
     return fieldValue as number[];
   }
+
+  getNumbersOrNull(keyPath: string): number[] | null {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === null ? null : this.getNumbers(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
