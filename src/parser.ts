@@ -96,6 +96,11 @@ export class Parser {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getNumbers(keyPath);
   }
+
+  getNumbersOrUndefined(keypath: string): number[] | undefined {
+    const fieldValue = getValueByPath(this.data, keypath);
+    return fieldValue === undefined ? undefined : this.getNumbers(keypath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
