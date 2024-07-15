@@ -111,6 +111,11 @@ export class Parser {
     if (!isNotANumber(fieldValue)) return fieldValue === 1 ? true : false;
     return fieldValue;
   }
+
+  getBooleanOrNull(keyPath: string): boolean | null {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === null ? null : this.getBoolean(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
