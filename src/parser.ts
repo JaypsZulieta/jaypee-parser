@@ -1,4 +1,5 @@
 import {
+  BooleanValidationException,
   NullFieldValidationException,
   NullValidationException,
   NumberArrayValidationException,
@@ -9,6 +10,7 @@ import {
   UndefinedValidationException,
 } from "./validation-exception";
 import {
+  isNotABoolean,
   isNotAListOfNumbers,
   isNotAListOfStrings,
   isNotANumber,
@@ -100,6 +102,14 @@ export class Parser {
   getNumbersOrUndefined(keypath: string): number[] | undefined {
     const fieldValue = getValueByPath(this.data, keypath);
     return fieldValue === undefined ? undefined : this.getNumbers(keypath);
+  }
+
+  getBoolean(keyPath: string): boolean {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    nullOrUndefinedFieldCheck(fieldValue, keyPath);
+    if (isNotABoolean(fieldValue)) throw new BooleanValidationException(keyPath);
+    if (!isNotANumber(fieldValue)) return fieldValue === 1 ? true : false;
+    return fieldValue;
   }
 }
 

@@ -59,3 +59,9 @@ export class NumberArrayValidationException extends ValidationException {
     );
   }
 }
+
+export class BooleanValidationException extends ValidationException {
+  constructor(fieldName: string) {
+    super(`the field ${fieldName} is not a boolean`);
+  }
+}
