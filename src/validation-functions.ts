@@ -35,5 +35,5 @@ export function isNotAListOfObjects(data: unknown): boolean {
 }
 
 export function isNotADate(data: unknown): boolean {
-  return !Zod.date().safeParse(data).success;
+  return !Zod.coerce.date().safeParse(data).success;
 }
