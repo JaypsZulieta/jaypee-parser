@@ -116,6 +116,11 @@ export class Parser {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getBoolean(keyPath);
   }
+
+  getBooleanOrUndefined(keyPath: string): boolean | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === undefined ? undefined : this.getBoolean(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
