@@ -29,6 +29,13 @@ describe("Parser.getDate", () => {
     expect(Parser.parseFrom({ date }).getDate("date")).toEqual(new Date("2003-12-20"));
   });
 
+  test("Should throw a DateValidationException if the date string is not valid", () => {
+    const date = "Foo Bar";
+    expect(() => {
+      Parser.parseFrom({ date }).getDate("date");
+    }).toThrow(DateValidationException);
+  });
+
   test("Should return a Date", () => {
     const date = new Date("2003-12-20");
     expect(Parser.parseFrom({ date }).getDate("date")).toEqual(date);
