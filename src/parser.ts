@@ -157,6 +157,11 @@ export class Parser {
     if (isNotAListOfObjects(fieldValue)) throw new ObjectArrayValidationException(keypath);
     return fieldValue as object[];
   }
+
+  getObjectsOrUndefined(keyPath: string): Object[] | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === undefined ? undefined : this.getObjects(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
