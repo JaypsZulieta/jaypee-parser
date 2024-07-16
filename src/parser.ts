@@ -132,6 +132,11 @@ export class Parser {
     if (!isNotAString(fieldValue)) return new Date(fieldValue);
     return fieldValue as Date;
   }
+
+  getDateOrUndefined(keyPath: string): Date | undefined {
+    const fieldValue = getValueByPath(this.data, keyPath);
+    return fieldValue === undefined ? undefined : this.getDate(keyPath);
+  }
 }
 
 function getValueByPath(data: any, keyPath: string): any {
