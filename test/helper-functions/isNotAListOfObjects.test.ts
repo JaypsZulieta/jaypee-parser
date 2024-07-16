@@ -6,6 +6,11 @@ describe("isNotAListOfObjects", () => {
     expect(isNotAListOfObjects(list)).toBe(false);
   });
 
+  test("Should return false if given an array of empty objects", () => {
+    const list = [{}, {}] as unknown;
+    expect(isNotAListOfObjects(list)).toBe(false);
+  });
+
   test("Should return true if given a list of numbers", () => {
     const list = [1, 2, 3, 4, 5] as unknown;
     expect(isNotAListOfObjects(list)).toBe(true);
