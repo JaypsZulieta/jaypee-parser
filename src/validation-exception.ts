@@ -16,21 +16,21 @@ export abstract class ValidationException extends Error {
 
 export class UndefinedFieldValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`The field '${fieldName}' is undefined`);
+    super(`expected the field '${fieldName}' to be defined`);
     this.setField(fieldName);
   }
 }
 
 export class NullFieldValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`The field '${fieldName}' is null`);
+    super(`expected the field '${fieldName}' to be non-null`);
     this.setField(fieldName);
   }
 }
 
 export class StringValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`The field '${fieldName}' is not a string`);
+    super(`expected the field '${fieldName}' to be a string`);
     this.setField(fieldName);
   }
 }
@@ -39,8 +39,8 @@ export class StringArrayValidationException extends ValidationException {
   constructor(fieldName?: string) {
     super(
       !fieldName
-        ? "The object is not an array of strings"
-        : `The field '${fieldName}' is not an array of strings`
+        ? "expected the object to be an array of strings"
+        : `expected the field '${fieldName}' to be an array of strings`
     );
     this.setField(fieldName);
   }
@@ -48,19 +48,19 @@ export class StringArrayValidationException extends ValidationException {
 
 export class NullValidationException extends ValidationException {
   constructor() {
-    super("value is null");
+    super("expected the object to be non-null");
   }
 }
 
 export class UndefinedValidationException extends ValidationException {
   constructor() {
-    super("value is undefined");
+    super("expected the object to be defined");
   }
 }
 
 export class NumberValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`The field '${fieldName}' is not a number.`);
+    super(`expected the field '${fieldName}' to be a number`);
     this.setField(fieldName);
   }
 }
@@ -69,8 +69,8 @@ export class NumberArrayValidationException extends ValidationException {
   constructor(fieldName?: string) {
     super(
       !fieldName
-        ? "The object is not an array of numbers"
-        : `The '${fieldName}' is not an array of numbers`
+        ? "expected the object to be an array of numbers"
+        : `expected the field '${fieldName}' to be an array of numbers`
     );
     this.setField(fieldName);
   }
@@ -78,14 +78,14 @@ export class NumberArrayValidationException extends ValidationException {
 
 export class BooleanValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`the field ${fieldName} is not a boolean`);
+    super(`expected the field '${fieldName}' to be a boolean`);
     this.setField(fieldName);
   }
 }
 
 export class DateValidationException extends ValidationException {
   constructor(fieldName: string) {
-    super(`the field ${fieldName} is not a date`);
+    super(`expected the field '${fieldName}' to be a date`);
     this.setField(fieldName);
   }
 }
@@ -94,8 +94,8 @@ export class ObjectArrayValidationException extends ValidationException {
   constructor(fieldName?: string) {
     super(
       !fieldName
-        ? "The object is not an array of objects"
-        : `The field '${fieldName}' is not an array of objects`
+        ? "expected the object to be an array of objects"
+        : `expected the field '${fieldName}' to be an array of objects`
     );
     this.setField(fieldName);
   }
