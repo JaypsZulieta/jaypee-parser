@@ -5,6 +5,7 @@ import {
   NullValidationException,
   NumberArrayValidationException,
   NumberValidationException,
+  ObjectArrayValidationException,
   StringArrayValidationException,
   StringValidationException,
   UndefinedFieldValidationException,
@@ -14,6 +15,7 @@ import {
   isNotABoolean,
   isNotADate,
   isNotAListOfNumbers,
+  isNotAListOfObjects,
   isNotAListOfStrings,
   isNotANumber,
   isNotAString,
@@ -141,6 +143,19 @@ export class Parser {
   getDateOrNull(keyPath: string): Date | null {
     const fieldValue = getValueByPath(this.data, keyPath);
     return fieldValue === null ? null : this.getDate(keyPath);
+  }
+
+  getObjects(keypath?: string): Object[] {
+    if (!keypath) {
+      const value = this.data;
+      nullOrUndefinedValueCheck(value);
+      if (isNotAListOfObjects(value)) throw new ObjectArrayValidationException();
+      return value as object[];
+    }
+    const fieldValue = getValueByPath(this.data, keypath);
+    nullOrUndefinedFieldCheck(fieldValue, keypath);
+    if (isNotAListOfObjects(fieldValue)) throw new ObjectArrayValidationException(keypath);
+    return fieldValue as object[];
   }
 }
 

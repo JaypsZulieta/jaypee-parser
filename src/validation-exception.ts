@@ -71,3 +71,13 @@ export class DateValidationException extends ValidationException {
     super(`the field ${fieldName} is not a date`);
   }
 }
+
+export class ObjectArrayValidationException extends ValidationException {
+  constructor(fieldName?: string) {
+    super(
+      !fieldName
+        ? "The object is not an array of objects"
+        : `The field '${fieldName}' is not an array of objects`
+    );
+  }
+}
