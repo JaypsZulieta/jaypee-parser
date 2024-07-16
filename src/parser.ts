@@ -1,3 +1,4 @@
+import { string } from "zod";
 import {
   BooleanValidationException,
   DateValidationException,
@@ -37,12 +38,18 @@ export class Parser {
 
   getStringOrUndefined(keyPath: string): string | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getString(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotAString(fieldValue)) throw new StringValidationException(keyPath);
+    return fieldValue as string;
   }
 
   getStringOrNull(keyPath: string): string | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getString(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotAString(fieldValue)) throw new StringValidationException(keyPath);
+    return fieldValue as string;
   }
 
   getStrings(keyPath?: string): string[] {
@@ -60,12 +67,18 @@ export class Parser {
 
   getStringsOrUndefined(keyPath: string): string[] | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getStrings(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotAListOfStrings(fieldValue)) throw new StringArrayValidationException(keyPath);
+    return fieldValue as string[];
   }
 
   getStringsOrNull(keyPath: string): string[] | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getStrings(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotAListOfStrings(fieldValue)) throw new StringArrayValidationException(keyPath);
+    return fieldValue as string[];
   }
 
   getNumber(keyPath: string): number {
@@ -77,12 +90,18 @@ export class Parser {
 
   getNumberOrUndefined(keyPath: string): number | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getNumber(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotANumber(fieldValue)) throw new NumberValidationException(keyPath);
+    return fieldValue as number;
   }
 
   getNumberOrNull(keyPath: string): number | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getNumber(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotANumber(fieldValue)) throw new NumberValidationException(keyPath);
+    return fieldValue as number;
   }
 
   getNumbers(keyPath?: string): number[] {
@@ -100,12 +119,18 @@ export class Parser {
 
   getNumbersOrNull(keyPath: string): number[] | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getNumbers(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotAListOfNumbers(fieldValue)) throw new NumberArrayValidationException(keyPath);
+    return fieldValue as number[];
   }
 
   getNumbersOrUndefined(keypath: string): number[] | undefined {
     const fieldValue = getValueByPath(this.data, keypath);
-    return fieldValue === undefined ? undefined : this.getNumbers(keypath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keypath);
+    if (isNotAListOfNumbers(fieldValue)) throw new NumberArrayValidationException(keypath);
+    return fieldValue as number[];
   }
 
   getBoolean(keyPath: string): boolean {
@@ -118,12 +143,20 @@ export class Parser {
 
   getBooleanOrNull(keyPath: string): boolean | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getBoolean(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotABoolean(fieldValue)) throw new BooleanValidationException(keyPath);
+    if (!isNotANumber(fieldValue)) return fieldValue === 1 ? true : false;
+    return fieldValue as boolean;
   }
 
   getBooleanOrUndefined(keyPath: string): boolean | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getBoolean(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotABoolean(fieldValue)) throw new BooleanValidationException(keyPath);
+    if (!isNotANumber(fieldValue)) return fieldValue === 1 ? true : false;
+    return fieldValue as boolean;
   }
 
   getDate(keyPath: string): Date {
@@ -137,12 +170,22 @@ export class Parser {
 
   getDateOrUndefined(keyPath: string): Date | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getDate(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotADate(fieldValue) || !isNotANumber(fieldValue))
+      throw new DateValidationException(keyPath);
+    if (!isNotAString(fieldValue)) return new Date(fieldValue);
+    return fieldValue as Date;
   }
 
   getDateOrNull(keyPath: string): Date | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getDate(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotADate(fieldValue) || !isNotANumber(fieldValue))
+      throw new DateValidationException(keyPath);
+    if (!isNotAString(fieldValue)) return new Date(fieldValue);
+    return fieldValue as Date;
   }
 
   getObjects(keypath?: string): Object[] {
@@ -160,12 +203,18 @@ export class Parser {
 
   getObjectsOrUndefined(keyPath: string): Object[] | undefined {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === undefined ? undefined : this.getObjects(keyPath);
+    if (fieldValue === undefined) return undefined;
+    if (fieldValue === null) throw new NullFieldValidationException(keyPath);
+    if (isNotAListOfObjects(fieldValue)) throw new ObjectArrayValidationException(keyPath);
+    return fieldValue as object[];
   }
 
   getObjectsOrNull(keyPath: string): Object[] | null {
     const fieldValue = getValueByPath(this.data, keyPath);
-    return fieldValue === null ? null : this.getObjects(keyPath);
+    if (fieldValue === null) return null;
+    if (fieldValue === undefined) throw new UndefinedFieldValidationException(keyPath);
+    if (isNotAListOfObjects(fieldValue)) throw new ObjectArrayValidationException(keyPath);
+    return fieldValue as object[];
   }
 }
 
